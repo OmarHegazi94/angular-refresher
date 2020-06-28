@@ -11,6 +11,7 @@ export class PersonsComponent implements OnInit, OnDestroy {
     // @Input() personList: string[];
     // private personService: PersonsService;
     personList: string[];
+    isLoading = false;
 
     private personListSubs: Subscription;
 
@@ -20,12 +21,14 @@ export class PersonsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.personSrv.fetchPersons();
+        this.isLoading = true;
         
-        this.personList = this.personSrv.persons;
+        //this.personList = this.personSrv.persons;
         this.personListSubs = this.personSrv.personsChanged.subscribe( persons => {
             this.personList = persons;
+            this.isLoading = false;
         });
+        this.personSrv.fetchPersons();
     }
 
     onRemovePerson(personName: string) {
