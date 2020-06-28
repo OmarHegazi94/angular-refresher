@@ -20,6 +20,8 @@ export class PersonsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.personSrv.fetchPersons();
+        
         this.personList = this.personSrv.persons;
         this.personListSubs = this.personSrv.personsChanged.subscribe( persons => {
             this.personList = persons;
